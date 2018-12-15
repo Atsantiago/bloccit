@@ -65,6 +65,7 @@ let(:my_post) { Post.create!(title: RandomData.random_sentence, body: RandomData
       expect(response).to redirect_to Post.last
     end
   end
+
   describe "GET edit" do
     it "returns http success" do
       get :edit, params: { id: my_post.id }
@@ -117,8 +118,8 @@ let(:my_post) { Post.create!(title: RandomData.random_sentence, body: RandomData
       expect(count).to eq 0
     end
 
-    it "dedirects to post index" do
-      delete :destroy, parans: { id: my_post.id }
+    it "redirects to post index" do
+      delete :destroy, params: { id: my_post.id }
 
       expect(respnse).to redirect_to posts_path
     end
