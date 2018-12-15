@@ -33,8 +33,12 @@ class QuestionsController < ApplicationController
     @question = Question.find(params[:id])
     @question.title = params[:question][:title]
     @question.body = params[:question][:body]
+    @question.resolved = params[:question][:resolved]
 
-    if @question.save
+    if @question.resolved == true
+      flash[:notice] = "Question was resolved."
+      redirect_to @question
+    elsif @question.save
       flash[:notice] = "Question was updated."
       redirect_to @question
     else

@@ -59,17 +59,6 @@ RSpec.describe QuestionsController, type: :controller do
       get :edit, params: { id: my_question.id }
       expect(response).to render_template :edit
     end
-
-    it "assigns question to be updated to @question" do
-      get :edit, params: { id: my_question.id }
-
-      question_instance = assigns(:question)
-
-      expect(question_instance.id).to eq my_question.id
-      expect(question_instance.title).to eq my_question.title
-      expect(question_instance.body).to eq my_question.body
-      expect(question_instance.resolved).to eq my_question.resolved
-    end
   end
 
   describe "GET create" do
@@ -94,10 +83,22 @@ RSpec.describe QuestionsController, type: :controller do
       new_title = RandomData.random_sentence
       new_body = RandomData.random_paragraph
 
-      put :update, params: { id: my_question.id, question: { title: RandomData.random_sentence, body: RandomData.random_paragraph, resolved: false } }
-      expect(response).to redirect_to (my_question)
+      put :update, params: { id: my_question.id, question: { title: new_title, body: new_body} }
+
+      updated_question = assigns(:question)
+      expect(updated_question.id).to eq my_question.id
+      expect(updated_question.title).to eq new_title
+      expect(updated_question.body).to eq new_body
+      end
+
+      it "redirects to the updated question" do
+        new_title = RandomData.random_sentence
+        new_body = RandomData.random_paragraph
+
+        put :update, params: { id: my_question.id, question: { title: new_title, body: new_body, resolved: true } }
+        expect(response).to redirect_to my_question
+      end
     end
-  end
 
   describe "DELETE destroy" do
     it "delete the question" do
