@@ -17,7 +17,7 @@
        </div>
        <div class="form-group">
          <%= f.label "Resolved?" %>
-         <%= check_box(@question, :resolved, {}, true, false) %>
+         <%= f.check_box(:resolved) %>
       </div>
      <% end %>
    </div>
