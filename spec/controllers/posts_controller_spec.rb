@@ -54,6 +54,7 @@ let(:my_post) { my_topic.posts.create!(title: RandomData.random_sentence, body: 
       expect(response).to redirect_to [my_topic, Post.last]
     end
   end
+
   describe "GET edit" do
     it "returns http success" do
       get :edit, params: { topic_id: my_topic.id, id: my_post.id }
